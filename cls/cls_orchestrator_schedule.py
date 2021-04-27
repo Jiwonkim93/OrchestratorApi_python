@@ -9,31 +9,28 @@ urllib3.disable_warnings()
 class Orchestrator_schedule(Orchestrator):
     def __init__(self, base_url, tenant_name, id, pw):
         super(Orchestrator_schedule, self).__init__(base_url, tenant_name, id, pw)
-
-    def get_schedule_all(self):
-        headers = {
+        self.headers = {
             'Content-Type': 'application/json; charset=utf-8',
             'Authorization': 'Bearer ' + self.api_key,
         }
 
+    def get_schedule_all(self):
+
         end_point = self.base_url + 'odata/ProcessSchedules'
-        response = requests.get(end_point.encode('utf-8'), headers=headers,verify=False)
+        response = requests.get(end_point.encode('utf-8'), headers=self.headers, verify=False)
 
         return response.json(encoding='utf-8')
 
 
     def get_schedule(self, environment_name):
-        headers = {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': 'Bearer ' + self.api_key,
-        }
+
         # There are other filtering options maybe
         params = (
             ('$filter', 'EnvironmentName eq \'' + environment_name + '\''),
         )
 
         end_point = self.base_url + 'odata/ProcessSchedules'
-        response = requests.get(end_point.encode('utf-8'), headers=headers, params=params, verify=False)
+        response = requests.get(end_point.encode('utf-8'), headers=self.headers, params=params, verify=False)
 
         return response.json(encoding='utf-8')
 
