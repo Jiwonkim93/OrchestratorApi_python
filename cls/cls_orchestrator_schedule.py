@@ -1,4 +1,3 @@
-import requests
 import urllib3
 import pandas as pd
 from cls.cls_orchestrator_main import Orchestrator
@@ -9,30 +8,7 @@ urllib3.disable_warnings()
 class Orchestrator_schedule(Orchestrator):
     def __init__(self, base_url, tenant_name, id, pw):
         super(Orchestrator_schedule, self).__init__(base_url, tenant_name, id, pw)
-        self.headers = {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': 'Bearer ' + self.api_key,
-        }
 
-    def get_schedule_all(self):
-
-        end_point = self.base_url + 'odata/ProcessSchedules'
-        response = requests.get(end_point.encode('utf-8'), headers=self.headers, verify=False)
-
-        return response.json(encoding='utf-8')
-
-
-    def get_schedule(self, environment_name):
-
-        # There are other filtering options maybe
-        params = (
-            ('$filter', 'EnvironmentName eq \'' + environment_name + '\''),
-        )
-
-        end_point = self.base_url + 'odata/ProcessSchedules'
-        response = requests.get(end_point.encode('utf-8'), headers=self.headers, params=params, verify=False)
-
-        return response.json(encoding='utf-8')
 
     def schedule_to_excel(self, schedule_json, export_path):
 
