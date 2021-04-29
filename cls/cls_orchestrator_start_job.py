@@ -12,10 +12,6 @@ class Orchestrator_Start_Job(Orchestrator):
     
     def __init__(self, base_url, tenant_name, id, pw):
         super(Orchestrator_Start_Job, self).__init__(base_url, tenant_name, id, pw)
-        self.headers = {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Authorization': 'Bearer ' + self.api_key,
-        }
         
         
     def make_arg_string(self, arg_dict):
